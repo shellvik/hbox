@@ -34,7 +34,7 @@ ansiinstall() {
 
 read -p "Run setup script? [Y/n] " setup
 if [[ $setup =~ ^[Yy] ]]; then
-  setup
+  rice
 else
   echo "Cancelled!!..."
 fi
