@@ -11,7 +11,7 @@
     ▀▀▀▄▄█▄▄▀▀▀
     
 ```
-![htb screenshot](/src/desktop.jpg?raw=true "pwnbox")
+![htb screenshot](src/desktop.jpg?raw=true "pwnbox")
 
 ---
 
@@ -41,4 +41,4 @@ sudo chmod +x install.sh
 - Change the theme : `Appearence Preferences` >> `Theme` >> `HackTheBox`.
 ### Setting Fonts
 - Go to `Appearence Preferences` >> `Fonts`: 
-![Font Settings](/src/font-settings.png)
+![Font Settings](src/font-settings.png)

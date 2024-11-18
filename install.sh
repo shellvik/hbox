@@ -2,6 +2,8 @@
 
 SCRIPT_DIR=$(dirname "$(realpath "$0")")
 
+bash $SCRIPT_DIR/src/vpn-scripts/banner.sh
+
 rice() {
   chmod +x "$SCRIPT_DIR/src/vpn-scripts/"*.sh
   sudo cp -R "$SCRIPT_DIR/src/vpn-scripts/"* /opt
@@ -30,7 +32,7 @@ rice() {
   if [ -d "$SCRIPT_DIR/src/fonts" ]; then
     [ ! -d "$HOME/.local/share/fonts/" ] && mkdir -p "$HOME/.local/share/fonts"
     unzip -d "$SCRIPT_DIR/src/fonts/" "$SCRIPT_DIR/src/fonts/*.zip"
-    cp -r "$SCRIPT_DIR/src/fonts/*.ttf" "${HOME}/.local/share/fonts/"
+    cp "$SCRIPT_DIR/src/fonts/*.ttf" "${HOME}/.local/share/fonts/"
   fi
 }
 
@@ -44,6 +46,7 @@ ansiinstall() {
 
 read -p "Run setup script? [Y/n] " setup
 if [[ $setup =~ ^[Yy]$ ]]; then
+  echo "Follow the README to compelte ricing after installation..."
   rice
 else
   echo "Rice setup cancelled."
@@ -51,6 +54,7 @@ fi
 
 read -p "Install Ansible? [Y/n] " ansi
 if [[ $ansi =~ ^[Yy]$ ]]; then
+  echo "Installing ansible with pipx..."
   ansiinstall
 else
   echo "Ansible installation cancelled."
