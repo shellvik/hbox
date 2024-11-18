@@ -26,7 +26,7 @@ rice() {
   fi
 
   if [ -d "$SCRIPT_DIR/src/wallpaper" ]; then
-    sudo cp "$SCRIPT_DIR/src/wallpaper/*" /usr/share/backgrounds/
+    sudo cp -R "$SCRIPT_DIR/src/wallpaper/" /usr/share/backgrounds/
   fi
 
   if [ -d "$SCRIPT_DIR/src/fonts" ]; then
