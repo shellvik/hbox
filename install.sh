@@ -30,9 +30,9 @@ rice() {
   fi
 
   if [ -d "$SCRIPT_DIR/src/fonts" ]; then
-    sudo mkdir -p "$HOME/.local/share/fonts" && sudo touch TEST.txt
+    sudo mkdir -p "$HOME/.local/share/fonts"
     unzip -d "$SCRIPT_DIR/src/fonts/" "$SCRIPT_DIR/src/fonts/*.zip"
-    sudo cp -R "$SCRIPT_DIR/src/fonts/" "${HOME}/.local/share/fonts/"
+    sudo cp -R "$SCRIPT_DIR/src/fonts/" "${HOME}/.local/share/"
   fi
 }
 
