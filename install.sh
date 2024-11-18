@@ -18,7 +18,7 @@ rice() {
 
   if [ -f "$SCRIPT_DIR/src/themes.zip" ]; then
     unzip -d "$SCRIPT_DIR/src/themes" "$SCRIPT_DIR/src/themes.zip"
-    sudo mv /usr/share/themes /usr/share/themes_bak
+    [ -d "/usr/share/themes_bak" ] && sudo mv /usr/share/themes /usr/share/themes_bak
     sudo cp -R "$SCRIPT_DIR/src/themes" /usr/share/
     sudo chmod 777 /usr/share/themes
   fi
@@ -29,7 +29,8 @@ rice() {
 
   if [ -d "$SCRIPT_DIR/src/fonts" ]; then
     [ ! -d "$HOME/.local/share/fonts/" ] && mkdir -p "$HOME/.local/share/fonts"
-    cp -r "$SCRIPT_DIR/src/fonts/*.ttf"* "$HOME/.local/share/fonts/"
+    unzip -d "$SCRIPT_DIR/src/fonts" "$SCRIPT_DIR/src/fonts/*.zip"
+    cp -r "$SCRIPT_DIR/src/fonts/*.ttf"* "~/.local/share/fonts/"
   fi
 }
 
