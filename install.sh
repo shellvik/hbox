@@ -6,7 +6,7 @@ rice() {
   chmod +x $(pwd)/src/vpn-scripts/*.sh
   sudo cp -R $(pwd)/src/vpn-scripts/* /opt
   sudo cp -R $(pwd)/src/htb-icons/ /usr/share/icons/
-  [-f "~/.bashrc" ] && sudo mv ~/.bashrc ~/.bashrc_bak
+  [ -f "~/.bashrc" ] && sudo mv ~/.bashrc ~/.bashrc_bak
   sudo cp $(pwd)/src/bashrc ~/.bashrc
 
   unzip $(pwd)/src/Material-Black-Lime-Numix-FLAT.zip
