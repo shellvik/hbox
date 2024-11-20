@@ -7,6 +7,7 @@ bash $SCRIPT_DIR/src/vpn-scripts/banner.sh
 rice() {
   chmod +x "$SCRIPT_DIR/src/htb-vpn-config/"*.sh
   sudo cp -R "$SCRIPT_DIR/src/htb-vpn-config/"* /etc/
+  sudo ln -sf /etc/htb-vpn-config/shvpn.sh /usr/bin/shvpn
   sudo cp -R "$SCRIPT_DIR/src/htb-icons/" /usr/share/icons/
 
   [ -f "$HOME/.bashrc" ] && mv "$HOME/.bashrc" "$HOME/.bashrc_bak"
