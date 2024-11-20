@@ -42,3 +42,14 @@ sudo chmod +x install.sh
 ### Setting Fonts
 - Go to `Appearence Preferences` >> `Fonts`: 
 ![Font Settings](src/font-settings.png)
+
+## Customizing Terminal
+- **Terminal Emulator** : *Kitty*, *Terminator*.
+- **Bash Prompt** : HTB Pwnbox
+![Bash-Prompt](src/bash-prompt.png)
+- **Zsh Prompt** : Default OMZ prompt.
+
+
+
+
+
