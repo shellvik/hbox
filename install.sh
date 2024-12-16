@@ -94,29 +94,34 @@ fi
 
 #-- Getting Seclist, Payloadallthethings, obsidian,
 getw(){
-  echo "Download Seclists, PayloadAllTheThings, Obsidian, Sublime..."
-  #-- Download seclists
-  sudo wget -c https://github.com/danielmiessler/SecLists/archive/master.zip -O /usr/share/SecList.zip \
-  && unzip /usr/share/SecLists /usr/share/SecList.zip \
-  && rm -f /usr/share/SecList.zip
+  echo "Downloading SecLists, PayloadAllTheThings, Obsidian, Sublime..."
 
-  #-- Download PayloadAllTheThings
-  wget -c https://github.com/swisskyrepo/PayloadsAllTheThings/archive/refs/heads/master.zip -O /usr/share/PayloadAllTheThings.zip \
-  && unzip /usr/share/PayLoadAllTheThings /usr/share/PayloadAllTheThings.zip \
-  && rm /usr/share/PayloadAllTheThings.zip
+  #-- Create directories for SecLists and PayloadAllTheThings
+  sudo mkdir -p /usr/share/SecLists
+  sudo mkdir -p /usr/share/PayloadAllTheThings
 
-  # Get obsidian and install
-  wget -c https://github.com/obsidianmd/obsidian-releases/releases/download/v1.7.7/obsidian_1.7.7_amd64.deb -O /tmp/obsidian.deb\ && 
-  sudo dpkg -i /tmp/obsidian.deb
+  #-- Download and unzip SecLists
+  sudo wget -c https://github.com/danielmiessler/SecLists/archive/master.zip -O /usr/share/SecLists.zip \
+  && sudo unzip /usr/share/SecLists.zip -d /usr/share/SecLists \
+  && sudo rm -f /usr/share/SecLists.zip
 
-  #Get Sublime-text
+  #-- Download and unzip PayloadAllTheThings
+  sudo wget -c https://github.com/swisskyrepo/PayloadsAllTheThings/archive/refs/heads/master.zip -O /usr/share/PayloadAllTheThings.zip \
+  && sudo unzip /usr/share/PayloadAllTheThings.zip -d /usr/share/PayloadAllTheThings \
+  && sudo rm -f /usr/share/PayloadAllTheThings.zip
+
+  #-- Download and install Obsidian
+  wget -c https://github.com/obsidianmd/obsidian-releases/releases/download/v1.7.7/obsidian_1.7.7_amd64.deb -O /tmp/obsidian.deb \
+  && sudo dpkg -i /tmp/obsidian.deb \
+  && rm -f /tmp/obsidian.deb
+
+  #-- Get Sublime Text
   wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/sublimehq-archive.gpg > /dev/null
   echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
   sudo apt-get update
-  sudo apt-get install sublime-text
-
-
+  sudo apt-get install -y sublime-text
 }
+
 
 read -p "Install Payloads, Wordlists, Obsidian, Sublime-text? [Y/n] " ess
 if [[ $ess =~ ^[Yy]$ ]]; then
