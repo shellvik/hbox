@@ -97,17 +97,17 @@ getw(){
   echo "Download Seclists, PayloadAllTheThings, Obsidian, Sublime..."
   #-- Download seclists
   sudo wget -c https://github.com/danielmiessler/SecLists/archive/master.zip -O /usr/share/SecList.zip \
-  && unzip /usr/share/SecList.zip \
+  && unzip /usr/share/SecLists /usr/share/SecList.zip \
   && rm -f /usr/share/SecList.zip
 
   #-- Download PayloadAllTheThings
   wget -c https://github.com/swisskyrepo/PayloadsAllTheThings/archive/refs/heads/master.zip -O /usr/share/PayloadAllTheThings.zip \
-  && unzip /usr/share/PayloadAllTheThings.zip \
+  && unzip /usr/share/PayLoadAllTheThings /usr/share/PayloadAllTheThings.zip \
   && rm /usr/share/PayloadAllTheThings.zip
 
   # Get obsidian and install
-  wget -c https://github.com/obsidianmd/obsidian-releases/releases/download/v1.7.7/obsidian_1.7.7_amd64.deb -O /tmp/obsidian.deb\
-  && sudo dpkg -i /tmp/obsidian.deb
+  wget -c https://github.com/obsidianmd/obsidian-releases/releases/download/v1.7.7/obsidian_1.7.7_amd64.deb -O /tmp/obsidian.deb\ && 
+  sudo dpkg -i /tmp/obsidian.deb
 
   #Get Sublime-text
   wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/sublimehq-archive.gpg > /dev/null
