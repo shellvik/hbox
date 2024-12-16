@@ -6,6 +6,10 @@
       - pipx
       - ntpdate
       - flameshot
+      - terminator
+      - synapse
+      - kitty
+      - neovim
     state: latest
   become: true
   become_method: sudo

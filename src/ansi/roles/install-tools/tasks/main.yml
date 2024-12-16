@@ -1,6 +1,4 @@
 ---
-# Adding Kali repo: 
-#- include: add-kali-repo.yml
 # Installing Tools:
 - include: apt-list.yml
 - include: apt-stuff.yml

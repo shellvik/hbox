@@ -132,3 +132,22 @@ set mouse=a
 #export PYENV_ROOT="$HOME/.pyenv"
 #command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 #eval "$(pyenv init -)"
+
+
+# Payload Environment Variables
+export PAYLOADS="/usr/share/payloads"
+export AUTOWORDLISTS="/usr/share/payloads/Auto_Wordlists"
+export FUZZDB="/usr/share/payloads/FuzzDB"
+export PAYLOADSALLTHETHINGS="/usr/share/PayloadAllTheThings"
+export SECLISTS="/usr/share/SecLists"
+export SECURITYWORDLIST="/usr/share/payloads/Security-Wordlist"
+export MIMIKATZ="/usr/share/windows/mimikatz"
+export POWERSPLOIT="/usr/share/windows/powersploit"
+export ROCKYOU="/usr/share/SecLists/Passwords/Leaked-Databases/rockyou.txt"
+export DIRBIG="/usr/share/SecLists/Discovery/Web-Content/directory-list-2.3-big.txt"
+export DIRMEDIUM="/usr/share/SecLists/Discovery/Web-Content/directory-list-2.3-medium.txt"
+export DIRSMALL="/usr/share/SecLists/Discovery/Web-Content/directory-list-2.3-small.txt"
+export WEBAPI_COMMON="/usr/share/SecLists/Discovery/Web-Content/api/api-endpoints.txt"
+export WEBAPI_MAZEN="/usr/share/SecLists/Discovery/Web-Content/common-api-endpoints-mazen160.txt"
+export WEBCOMMON="/usr/share/SecLists/Discovery/Web-Content/common.txt"
+export WEBPARAM="/usr/share/SecLists/Discovery/Web-Content/burp-parameter-names.txt"
