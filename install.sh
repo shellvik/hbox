@@ -41,7 +41,7 @@ rice() {
 ansiinstall() {
   sudo apt install -y pipx
   pipx ensurepath
-  pipx install ansible
+  pipx install ansible-core
   export LC_CTYPE="en_US.UTF-8"
   export LANG="en_US.UTF-8"
 }
@@ -54,10 +54,39 @@ else
   echo "Rice setup cancelled."
 fi
 
+#----Fixing Locale to be UTF-8 Else ansible will not work:
+fix_locale() {
+    echo "Checking current locale settings..."
+    locale
+    # Check if the current LANG or LC_ALL uses a non-UTF-8 encoding
+    if [[ "$(locale | grep 'LANG=')" != *".UTF-8"* ]] || [[ "$(locale | grep 'LC_ALL=')" != *".UTF-8"* ]]; then
+        echo "Current locale encoding is not UTF-8. Fixing now..."
+
+        # Set the default locale to UTF-8
+        echo "Setting LANG and LC_ALL to UTF-8..."
+        echo 'LANG="en_US.UTF-8"' | sudo tee /etc/default/locale >/dev/null
+        echo 'LC_ALL="en_US.UTF-8"' | sudo tee -a /etc/default/locale >/dev/null
+
+        # Generate the new locale
+        echo "Generating locale..."
+        sudo locale-gen en_US.UTF-8
+
+        # Apply changes
+        echo "Applying new locale settings..."
+        sudo update-locale LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8
+    else
+        echo "Locale is already set to UTF-8. No changes needed."
+    fi
+
+    echo "Locale settings updated successfully. Restart your terminal or run 'source /etc/default/locale' to apply immediately."
+}
+
+
 read -p "Install Ansible? [Y/n] " ansi
 if [[ $ansi =~ ^[Yy]$ ]]; then
   echo "Installing ansible with pipx..."
   ansiinstall
+  fix_locale
 else
   echo "Ansible installation cancelled."
 fi

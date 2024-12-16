@@ -41,6 +41,7 @@ sudo chmod +x install.sh
 - Change the theme : `Appearence Preferences` >> `Theme` >> `HackTheBox`.
 ### Setting Fonts
 - Go to `Appearence Preferences` >> `Fonts`: 
+
 ![Font Settings](src/font-settings.png)
 
 ## Customizing Terminal
