@@ -48,7 +48,18 @@ sudo chmod +x install.sh
 - **Bash Prompt** : HTB Pwnbox
 ![Bash-Prompt](src/bash-prompt.png)
 - **Zsh Prompt** : Default OMZ prompt.
+- Installation : 
+```bash
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+```
 
+## Keep OpenVPN at right place
+- Keep academy and lab vpn in : `/etc/htb-vpn-config/` as `aca-htb.ovpn`
+and `lab-htb.ovpn`.
+- **Connecting to vpn**:
+```bash
+shvpn {aca|lab}
+```
 
 
 

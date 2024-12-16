@@ -1,0 +1,10 @@
+---
+- name: "Installing exploitdb, sublist3r, ffuf, subfinder, httprobe..."
+  apt:
+    name:
+#     - exploitdb
+      - sublist3r
+#     - ffuf
+      - subfinder
+      - httprobe
+    state: present
