@@ -86,6 +86,7 @@ read -p "Install Ansible? [Y/n] " ansi
 if [[ $ansi =~ ^[Yy]$ ]]; then
   echo "Installing ansible with pipx..."
   ansiinstall
+  ansible-galaxy collection install community.general
   fix_locale
 else
   echo "Ansible installation cancelled."
