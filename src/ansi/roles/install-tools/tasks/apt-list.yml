@@ -1,10 +1,9 @@
-- name: "Installing exploitdb, sublist3r, ffuf, subfinder, httprobe..."
+- name: "Installing more tools..."
   apt:
     name:
       # Note: Uncomment packages as needed
       # - exploitdb  # Exploit database CLI tools
       - sublist3r  # Subdomain enumeration tool
       # - ffuf       # Fuzzing tool
-      - subfinder   # Subdomain discovery tool
       - httprobe    # HTTP probing tool
     state: present
