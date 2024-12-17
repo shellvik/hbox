@@ -1,4 +1,5 @@
 - name: "Installing more tools..."
+  become: true
   apt:
     name:
       # Note: Uncomment packages as needed
