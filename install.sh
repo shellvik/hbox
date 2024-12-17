@@ -39,7 +39,7 @@ rice() {
 }
 
 ansiinstall() {
-  sudo apt install -y pipx
+  python3 -m pip install --user pipx
   pipx ensurepath
   pipx install ansible-core
   export LC_CTYPE="en_US.UTF-8"
