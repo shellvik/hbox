@@ -1,6 +1,5 @@
----
 - name: "Install pipx tools"
-  community.general.pipx:
+  pipx:
     name: "{{ item.name }}"
     source: "{{ item.url }}"
     state: latest
