@@ -7,18 +7,3 @@
     - role: "roles/customize-browser"
     - role: "roles/configure-logging"
   
-# ###########################
-# Add Task to Start Burp Suite Automatically with Intercept ON
-# ###########################
-
-# Start Burp Suite in the background and enable intercept automatically
-- name: "Start Burp Suite and enable intercept"
-  shell: |
-    nohup burpsuite --proxy 127.0.0.1:8080 --intercept-on &
-  async: 60
-  poll: 0
-  become: true
-  become_method: sudo
-  # This will run Burp Suite as a background process and enable interception immediately.
-  # --proxy flag sets up the proxy for Burp Suite at 127.0.0.1:8080
-  # --intercept-on ensures the intercept functionality is enabled from the start
