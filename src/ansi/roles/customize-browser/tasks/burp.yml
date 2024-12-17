@@ -1,8 +1,10 @@
+# Check if BurpSuite CA certificate exists, if not, download and install it
 - name: "Check if BurpSuiteCA.der exists"
   stat:
     path: /usr/local/share/ca-certificates/BurpSuiteCA.der
   register: burp_cert
-  
+
+# Copying BurpScript for fetching CA certificates, if necessary
 - name: "Copying Burp Script"
   copy:
     src: files/getburpcert.sh
@@ -10,11 +12,12 @@
     mode: 0744
   when: burp_cert.stat.exists == False
 
+# Execute the script to download BurpSuite CA certificate
 - name: "Executing bash script to Download CA Certificate"
-  shell:
-    /tmp/getburpcert.sh
+  shell: /tmp/getburpcert.sh
   when: burp_cert.stat.exists == False
 
+# Copy the downloaded certificate to CA store
 - name: "Copying CA Certificate to /usr/local/share/ca-certificates"
   copy:
     src: /tmp/cacert.der
@@ -26,7 +29,8 @@
   become_method: sudo
   when: burp_cert.stat.exists == False
 
-- name: Create directory for Burp Suite extras
+# Create the directory where Burp Suite extras will be placed
+- name: "Create directory for Burp Suite extras"
   ansible.builtin.file:
     path: "{{ burpsuite_extras_dir }}"
     state: directory
@@ -34,7 +38,8 @@
   become: true
   become_method: sudo
 
-- name: Download jar files
+# Download necessary Burp Suite JAR files
+- name: "Download jar files"
   ansible.builtin.get_url:
     url: "{{ item.value.url }}"
     dest: "{{ burpsuite_extras_dir }}/{{ item.value.jar }}"
@@ -43,9 +48,25 @@
   become: true
   become_method: sudo
   loop: "{{ lookup('dict', burpsuite_extras_jars) }}"
-  
-- name: Copy BurpSuite Community Config
+
+# Copy Burp Suite community config
+- name: "Copy BurpSuite Community Config"
   template:
     src: "templates/UserConfigCommunity.json.j2"
     dest: "/home/{{ ansible_user_id }}/.BurpSuite/UserConfigCommunity.json"
 
+# ###########################
+# Add Task to Start Burp Suite Automatically with Intercept ON
+# ###########################
+
+# Start Burp Suite in the background and enable intercept automatically
+- name: "Start Burp Suite and enable intercept"
+  shell: |
+    nohup burpsuite --proxy 127.0.0.1:8080 --intercept-on &
+  async: 60
+  poll: 0
+  become: true
+  become_method: sudo
+  # This will run Burp Suite as a background process and enable interception immediately.
+  # --proxy flag sets up the proxy for Burp Suite at 127.0.0.1:8080
+  # --intercept-on ensures the intercept functionality is enabled from the start
