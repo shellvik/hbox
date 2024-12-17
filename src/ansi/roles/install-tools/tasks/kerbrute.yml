@@ -5,6 +5,7 @@
     state: present
 
 - name: "Clone the Kerbrute repository"
+  become: true  # Use root permissions to clone to /opt
   git:
     repo: 'https://github.com/ropnop/kerbrute.git'
     dest: '/opt/kerbrute'  # Destination directory to clone the repo
