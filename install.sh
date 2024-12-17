@@ -138,7 +138,7 @@ run_ansible_scripts(){
 }
 
 read -p "Run ansible Script? [Y/n] " an
-if [[ $ess =~ ^[Yy]$ ]]; then
+if [[ $an =~ ^[Yy]$ ]]; then
   echo "Executing ansible script..."
   run_ansible_scripts
 else
