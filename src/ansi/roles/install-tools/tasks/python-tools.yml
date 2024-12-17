@@ -1,10 +1,38 @@
 ---
-- name: "Install pipx tools"
-  community.general.pipx:
-    name: "{{ item.name }}"
-    source: "{{ item.url }}"
-    state: latest
-  loop:
-    - { name: 'impacket', url: 'git+https://github.com/fortra/impacket.git' }
-    - { name: 'crackmapexec', url: 'git+https://github.com/Porchetta-Industries/CrackMapExec.git' }
-    - { name: 'certipy-ad', url: 'git+https://github.com/ly4k/Certipy.git' }
+- name: "Install python tools in virtualenv"
+  hosts: localhost
+  become: true
+  tasks:
+    - name: "Ensure python3-venv is installed"
+      apt:
+        name: python3-venv
+        state: present
+
+    - name: "Create a new virtual environment"
+      command:
+        cmd: python3 -m venv /opt/pytools
+        creates: /opt/pytools/bin/python
+
+    - name: "Upgrade pip to latest version"
+      pip:
+        name: pip
+        virtualenv: /opt/pytools
+        state: latest
+
+    - name: "Install Impacket"
+      pip:
+        name: git+https://github.com/fortra/impacket.git
+        virtualenv: /opt/pytools
+
+    - name: "Install CrackMapExec"
+      pip:
+        name: git+https://github.com/Porchetta-Industries/CrackMapExec.git
+        virtualenv: /opt/pytools
+
+    - name: "Install Certipy"
+      pip:
+        name: git+https://github.com/ly4k/Certipy.git
+        virtualenv: /opt/pytools
+
+    - name: "Ensure python tools are available"
+      command: /opt/pytools/bin/python -m pip show impacket crackmapexec certipy
