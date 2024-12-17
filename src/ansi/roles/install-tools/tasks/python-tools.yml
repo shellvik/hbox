@@ -1,36 +1,33 @@
 ---
-# roles/install-tools/tasks/python-tools.yml
-
-- name: "Ensure python3-venv is installed"
+- name: "Install python tools in virtualenv"
+  become: yes  # Elevate privileges
   apt:
     name: python3-venv
     state: present
 
-- name: "Create a new virtual environment"
-  command:
-    cmd: python3 -m venv /opt/pytools
-    creates: /opt/pytools/bin/python
+- name: "Create a virtual environment"
+  become: yes  # Elevate privileges
+  shell: python3 -m venv /opt/venv
 
-- name: "Upgrade pip to latest version"
-  pip:
-    name: pip
-    virtualenv: /opt/pytools
+- name: "Ensure pip is installed in the virtual environment"
+  become: yes  # Elevate privileges
+  shell: /opt/venv/bin/python -m ensurepip --upgrade
+
+- name: "Upgrade pip to latest"
+  become: yes  # Elevate privileges
+  shell: /opt/venv/bin/python -m pip install --upgrade pip
+
+- name: "Install pipx in virtualenv"
+  become: yes  # Elevate privileges
+  shell: /opt/venv/bin/python -m pip install pipx
+
+- name: "Install python tools using pipx"
+  become: yes  # Elevate privileges
+  pipx:
+    name: "{{ item.name }}"
+    source: "{{ item.url }}"
     state: latest
-
-- name: "Install Impacket"
-  pip:
-    name: git+https://github.com/fortra/impacket.git
-    virtualenv: /opt/pytools
-
-- name: "Install CrackMapExec"
-  pip:
-    name: git+https://github.com/Porchetta-Industries/CrackMapExec.git
-    virtualenv: /opt/pytools
-
-- name: "Install Certipy"
-  pip:
-    name: git+https://github.com/ly4k/Certipy.git
-    virtualenv: /opt/pytools
-
-- name: "Ensure python tools are available"
-  command: /opt/pytools/bin/python -m pip show impacket crackmapexec certipy
+  loop:
+    - { name: 'impacket', url: 'git+https://github.com/fortra/impacket.git' }
+    - { name: 'crackmapexec', url: 'git+https://github.com/Porchetta-Industries/CrackMapExec.git' }
+    - { name: 'certipy-ad', url: 'git+https://github.com/ly4k/Certipy.git' }
