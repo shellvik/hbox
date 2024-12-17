@@ -17,15 +17,12 @@
   become: yes  # Elevate privileges
   shell: /opt/venv/bin/python -m pip install --upgrade pip
 
-- name: "Install pipx in virtualenv"
+- name: "Install tools using pip"
   become: yes  # Elevate privileges
-  shell: /opt/venv/bin/python -m pip install pipx
-
-- name: "Install python tools using pipx"
-  become: yes  # Elevate privileges
-  pipx:
+  pip:
     name: "{{ item.name }}"
-    source: "{{ item.url }}"
+    extra_args: "{{ item.url | default(omit) }}"
+    virtualenv: /opt/venv
     state: latest
   loop:
     - { name: 'impacket', url: 'git+https://github.com/fortra/impacket.git' }
