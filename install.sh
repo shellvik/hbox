@@ -136,4 +136,13 @@ run_ansible_scripts(){
   sudo whoami && 
   ansible-playbook ./src/ansi/main.yml
 }
-run_ansible_scripts
+
+read -p "Run ansible Script? [Y/n] " an
+if [[ $ess =~ ^[Yy]$ ]]; then
+  echo "Executing ansible script..."
+  run_ansible_scripts
+else
+  echo "Not executing..."
+fi
+
+

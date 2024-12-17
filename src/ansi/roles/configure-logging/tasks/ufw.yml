@@ -1,7 +1,14 @@
 ---
+- name: "Ensure rsyslog is installed"
+  package:
+    name: rsyslog
+    state: present
+  become: yes
+  become_method: sudo
+
 - name: "Enable rsyslog service"
   service:
-    name: rsyslog
+    name: rsyslog  # Change to syslog if needed
     enabled: yes
     state: started
   become: yes
@@ -28,5 +35,3 @@
     state: restarted
   become: true
   become_method: sudo
-        
-
