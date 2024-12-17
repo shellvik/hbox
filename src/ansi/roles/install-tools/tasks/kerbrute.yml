@@ -2,7 +2,7 @@
 - name: "install Kerbrute"
   shell: go install github.com/ropnop/kerbrute@master
 - name: "Copying Kerbrute from /root/go/bin to /usr/sbin"
-  become: yes
+  become: true
   become_method: sudo
   copy:
     src: /root/go/bin/kerbrute
