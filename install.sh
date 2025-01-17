@@ -56,31 +56,30 @@ fi
 
 #----Fixing Locale to be UTF-8 Else ansible will not work:
 fix_locale() {
-    echo "Checking current locale settings..."
-    locale
-    # Check if the current LANG or LC_ALL uses a non-UTF-8 encoding
-    if [[ "$(locale | grep 'LANG=')" != *".UTF-8"* ]] || [[ "$(locale | grep 'LC_ALL=')" != *".UTF-8"* ]]; then
-        echo "Current locale encoding is not UTF-8. Fixing now..."
+  echo "Checking current locale settings..."
+  locale
+  # Check if the current LANG or LC_ALL uses a non-UTF-8 encoding
+  if [[ "$(locale | grep 'LANG=')" != *".UTF-8"* ]] || [[ "$(locale | grep 'LC_ALL=')" != *".UTF-8"* ]]; then
+    echo "Current locale encoding is not UTF-8. Fixing now..."
 
-        # Set the default locale to UTF-8
-        echo "Setting LANG and LC_ALL to UTF-8..."
-        echo 'LANG="en_US.UTF-8"' | sudo tee /etc/default/locale >/dev/null
-        echo 'LC_ALL="en_US.UTF-8"' | sudo tee -a /etc/default/locale >/dev/null
+    # Set the default locale to UTF-8
+    echo "Setting LANG and LC_ALL to UTF-8..."
+    echo 'LANG="en_US.UTF-8"' | sudo tee /etc/default/locale >/dev/null
+    echo 'LC_ALL="en_US.UTF-8"' | sudo tee -a /etc/default/locale >/dev/null
 
-        # Generate the new locale
-        echo "Generating locale..."
-        sudo locale-gen en_US.UTF-8
+    # Generate the new locale
+    echo "Generating locale..."
+    sudo locale-gen en_US.UTF-8
 
-        # Apply changes
-        echo "Applying new locale settings..."
-        sudo update-locale LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8
-    else
-        echo "Locale is already set to UTF-8. No changes needed."
-    fi
+    # Apply changes
+    echo "Applying new locale settings..."
+    sudo update-locale LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8
+  else
+    echo "Locale is already set to UTF-8. No changes needed."
+  fi
 
-    echo "Locale settings updated successfully. Restart your terminal or run 'source /etc/default/locale' to apply immediately."
+  echo "Locale settings updated successfully. Restart your terminal or run 'source /etc/default/locale' to apply immediately."
 }
-
 
 read -p "Install Ansible? [Y/n] " ansi
 if [[ $ansi =~ ^[Yy]$ ]]; then
@@ -92,37 +91,35 @@ else
   echo "Ansible installation cancelled."
 fi
 
-
 #-- Getting Seclist, Payloadallthethings, obsidian,
-getw(){
+getw() {
   echo "Downloading SecLists, PayloadAllTheThings, Obsidian, Sublime..."
+ # Uncomment if not kali because these are already in apt repo in kali
+  # #-- Create directories for SecLists and PayloadAllTheThings
+  # sudo mkdir -p /usr/share/SecLists
+  # sudo mkdir -p /usr/share/PayloadAllTheThings
 
-  #-- Create directories for SecLists and PayloadAllTheThings
-  sudo mkdir -p /usr/share/SecLists
-  sudo mkdir -p /usr/share/PayloadAllTheThings
+  # #-- Download and unzip SecLists
+  # sudo wget -c https://github.com/danielmiessler/SecLists/archive/master.zip -O /usr/share/SecLists.zip &&
+  #   sudo unzip /usr/share/SecLists.zip -d /usr/share/SecLists &&
+  #   sudo rm -f /usr/share/SecLists.zip
 
-  #-- Download and unzip SecLists
-  sudo wget -c https://github.com/danielmiessler/SecLists/archive/master.zip -O /usr/share/SecLists.zip \
-  && sudo unzip /usr/share/SecLists.zip -d /usr/share/SecLists \
-  && sudo rm -f /usr/share/SecLists.zip
-
-  #-- Download and unzip PayloadAllTheThings
-  sudo wget -c https://github.com/swisskyrepo/PayloadsAllTheThings/archive/refs/heads/master.zip -O /usr/share/PayloadAllTheThings.zip \
-  && sudo unzip /usr/share/PayloadAllTheThings.zip -d /usr/share/PayloadAllTheThings \
-  && sudo rm -f /usr/share/PayloadAllTheThings.zip
+  # #-- Download and unzip PayloadAllTheThings
+  # sudo wget -c https://github.com/swisskyrepo/PayloadsAllTheThings/archive/refs/heads/master.zip -O /usr/share/PayloadAllTheThings.zip &&
+  #   sudo unzip /usr/share/PayloadAllTheThings.zip -d /usr/share/PayloadAllTheThings &&
+  #   sudo rm -f /usr/share/PayloadAllTheThings.zip
 
   #-- Download and install Obsidian
-  wget -c https://github.com/obsidianmd/obsidian-releases/releases/download/v1.7.7/obsidian_1.7.7_amd64.deb -O /tmp/obsidian.deb \
-  && sudo dpkg -i /tmp/obsidian.deb \
-  && rm -f /tmp/obsidian.deb
+  wget -c https://github.com/obsidianmd/obsidian-releases/releases/download/v1.7.7/obsidian_1.7.7_amd64.deb -O /tmp/obsidian.deb &&
+    sudo dpkg -i /tmp/obsidian.deb &&
+    rm -f /tmp/obsidian.deb
 
   #-- Get Sublime Text
-  wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/sublimehq-archive.gpg > /dev/null
+  wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/sublimehq-archive.gpg >/dev/null
   echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
   sudo apt-get update
   sudo apt-get install -y sublime-text
 }
-
 
 read -p "Install Payloads, Wordlists, Obsidian, Sublime-text? [Y/n] " ess
 if [[ $ess =~ ^[Yy]$ ]]; then
@@ -132,9 +129,9 @@ else
   echo "Installation cancelled."
 fi
 
-run_ansible_scripts(){
-  sudo whoami && 
-  ansible-playbook ./src/ansi/main.yml
+run_ansible_scripts() {
+  sudo whoami &&
+    ansible-playbook ./src/ansi/main.yml
 }
 
 read -p "Run ansible Script? [Y/n] " an
@@ -144,5 +141,3 @@ if [[ $an =~ ^[Yy]$ ]]; then
 else
   echo "Not executing..."
 fi
-
-
