@@ -4,6 +4,15 @@ SCRIPT_DIR=$(dirname "$(realpath "$0")")
 
 bash $SCRIPT_DIR/src/vpn-scripts/banner.sh
 
+sudo apt update
+
+essentials(){
+  sudo apt install kitty
+  sudo apt install termintor
+}
+
+essentials
+
 rice() {
   chmod +x "$SCRIPT_DIR/src/htb-vpn-config/"*.sh
   sudo cp -R "$SCRIPT_DIR/src/htb-vpn-config/" /etc/htb-vpn-config
@@ -38,13 +47,13 @@ rice() {
   fi
 }
 
-ansiinstall() {
-  sudo apt install -y pipx
-  pipx ensurepath
-  pipx install ansible-core
-  export LC_CTYPE="en_US.UTF-8"
-  export LANG="en_US.UTF-8"
-}
+# ansiinstall() {
+#   sudo apt install -y pipx
+#   pipx ensurepath
+#   pipx install ansible-core
+#   export LC_CTYPE="en_US.UTF-8"
+#   export LANG="en_US.UTF-8"
+# }
 
 read -p "Run setup script? [Y/n] " setup
 if [[ $setup =~ ^[Yy]$ ]]; then
@@ -81,19 +90,19 @@ fix_locale() {
   echo "Locale settings updated successfully. Restart your terminal or run 'source /etc/default/locale' to apply immediately."
 }
 
-read -p "Install Ansible? [Y/n] " ansi
-if [[ $ansi =~ ^[Yy]$ ]]; then
-  echo "Installing ansible with pipx..."
-  ansiinstall
-  ansible-galaxy collection install community.general
-  fix_locale
-else
-  echo "Ansible installation cancelled."
-fi
+# read -p "Install Ansible? [Y/n] " ansi
+# if [[ $ansi =~ ^[Yy]$ ]]; then
+#   echo "Installing ansible with pipx..."
+#   ansiinstall
+#   ansible-galaxy collection install community.general
+#   fix_locale
+# else
+#   echo "Ansible installation cancelled."
+# fi
 
 #-- Getting Seclist, Payloadallthethings, obsidian,
 getw() {
-  echo "Downloading SecLists, PayloadAllTheThings, Obsidian, Sublime..."
+  echo "Downloading Obsidian, Sublime..."
  # Uncomment if not kali because these are already in apt repo in kali
   # #-- Create directories for SecLists and PayloadAllTheThings
   # sudo mkdir -p /usr/share/SecLists
@@ -129,15 +138,16 @@ else
   echo "Installation cancelled."
 fi
 
-run_ansible_scripts() {
-  sudo whoami &&
-    ansible-playbook ./src/ansi/main.yml
-}
 
-read -p "Run ansible Script? [Y/n] " an
-if [[ $an =~ ^[Yy]$ ]]; then
-  echo "Executing ansible script..."
-  run_ansible_scripts
-else
-  echo "Not executing..."
-fi
+# run_ansible_scripts() {
+#   sudo whoami &&
+#     ansible-playbook ./src/ansi/main.yml
+# }
+
+# read -p "Run ansible Script? [Y/n] " an
+# if [[ $an =~ ^[Yy]$ ]]; then
+#   echo "Executing ansible script..."
+#   run_ansible_scripts
+# else
+#   echo "Not executing..."
+# fi
