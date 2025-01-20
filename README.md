@@ -19,6 +19,12 @@
 ```bash
 git clone https://github.com/shellvik/hbox
 ```
+- Download the repo
+```bash
+wget -c https://github.com/shellvik/hbox/archive/master.zip -O hbox.zip 
+    &&unzip hbox.zip 
+    && rm -rf hbox.zip
+```
 ## Install
 ### Install Mate Desktop Environment
 - This will install complete MATE desktop(Required in Kali, Parros HTB edition has MATE by default).
